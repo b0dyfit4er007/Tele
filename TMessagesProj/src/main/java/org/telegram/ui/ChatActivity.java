@@ -15097,6 +15097,10 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 messageObject.localGroupId = localId;
             }
             if (messageObject.isOut()) {
+                Drawable wallpaper = Theme.getCachedWallpaperNonBlocking();
+                if (wallpaper instanceof MotionBackgroundDrawable) {
+                    ((MotionBackgroundDrawable) wallpaper).switchToNextPosition();
+                }
                 if (!notifiedSearch) {
                     notifiedSearch = true;
                     NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.closeSearchByActiveAction);
@@ -15175,12 +15179,6 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
 
             for (int a = 0; a < arr.size(); a++) {
                 MessageObject obj = arr.get(a);
-                if (obj.isOut()) {
-                    Drawable wallpaper = Theme.getCachedWallpaperNonBlocking();
-                    if (wallpaper instanceof MotionBackgroundDrawable) {
-                        ((MotionBackgroundDrawable) wallpaper).switchToNextPosition();
-                    }
-                }
                 if (threadMessageId != 0 && threadMessageId != obj.getReplyTopMsgId() && threadMessageId != obj.getReplyMsgId()) {
                     continue;
                 }
@@ -15275,12 +15273,6 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 MessageObject obj = arr.get(a);
                 if (obj.scheduled != (chatMode == MODE_SCHEDULED) || threadMessageId != 0 && threadMessageId != obj.getReplyTopMsgId() && threadMessageId != obj.getReplyMsgId()) {
                     continue;
-                }
-                if (obj.isOut()) {
-                    Drawable wallpaper = Theme.getCachedWallpaperNonBlocking();
-                    if (wallpaper instanceof MotionBackgroundDrawable) {
-                        ((MotionBackgroundDrawable) wallpaper).switchToNextPosition();
-                    }
                 }
                 int placeToPaste = -1;
                 int messageId = obj.getId();
@@ -15621,6 +15613,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                         AndroidUtilities.runOnUIThread(() -> scrollToMessageId(mid, 0, false, 0, true, 0));
                     }
                 }
+
             }
         }
         if (!messages.isEmpty() && botUser != null && botUser.length() == 0) {

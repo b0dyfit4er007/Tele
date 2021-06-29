@@ -2480,15 +2480,12 @@ public class MessageObject {
                         }
                         messageText = LocaleController.formatString("ActionGroupCallEnded", R.string.ActionGroupCallEnded, time);
                     } else {
-                        if (isSupergroup()) {
-                            if (isOut()) {
-                                messageText = LocaleController.getString("ActionGroupCallStartedByYou", R.string.ActionGroupCallStartedByYou);
-                            } else {
-                                messageText = replaceWithLink(LocaleController.getString("ActionGroupCallStarted", R.string.ActionGroupCallStarted), "un1", fromObject);
-                            }
+                        messageText = LocaleController.getString("ActionGroupCallJustStarted", R.string.ActionGroupCallJustStarted);
+                        /*if (isOut()) {
+                            messageText = LocaleController.getString("ActionGroupCallStartedByYou", R.string.ActionGroupCallStartedByYou);
                         } else {
-                            messageText = LocaleController.getString("ActionGroupCallJustStarted", R.string.ActionGroupCallJustStarted);
-                        }
+                            messageText = replaceWithLink(LocaleController.getString("ActionGroupCallStarted", R.string.ActionGroupCallStarted), "un1", fromObject);
+                        }*/
                     }
                 } else if (messageOwner.action instanceof TLRPC.TL_messageActionInviteToGroupCall) {
                     int singleUserId = messageOwner.action.user_id;
